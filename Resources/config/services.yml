@@ -1,0 +1,4 @@
+services:
+#    vague_swf_w.example:
+#        class: Vague\SwfWBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

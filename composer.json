@@ -1,0 +1,27 @@
+{
+  "name": "Vague/SwfWBundle",
+  "description": "",
+  "type": "symfony-bundle",
+  "authors": [
+    {
+      "name": "evilfirefox",
+      "email": "uef_mailbox@yahoo.co.uk"
+    }
+  ],
+  "license": [
+    "MIT"
+  ],
+  "require": {
+    "aws/aws-sdk-php": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "Vague\\SwfWBundle": ""
+    }
+  },
+  "target-dir": "Vague/SwfWBundle",
+  "repositories": [
+    {
+    }
+  ]
+}
