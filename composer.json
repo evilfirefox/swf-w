@@ -12,7 +12,7 @@
     "MIT"
   ],
   "require": {
-    "aws/aws-sdk-php": "dev-master"
+    "aws/aws-sdk-php": "^3.2"
   },
   "autoload": {
     "psr-0": {
