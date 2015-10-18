@@ -12,6 +12,7 @@
     "MIT"
   ],
   "require": {
+    "misd/guzzle-bundle": "~1.0",
     "aws/aws-sdk-php": "^3.2"
   },
   "autoload": {
@@ -19,9 +20,5 @@
       "Vague\\SwfWBundle": ""
     }
   },
-  "target-dir": "Vague/SwfWBundle",
-  "repositories": [
-    {
-    }
-  ]
+  "target-dir": "Vague/SwfWBundle"
 }
