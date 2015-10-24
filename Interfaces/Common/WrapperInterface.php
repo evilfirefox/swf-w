@@ -17,4 +17,9 @@ interface WrapperInterface
      * @return mixed
      */
     public function initFromArray(array $source);
+
+    /**
+     * @return array
+     */
+    public function convertToArray();
 }
