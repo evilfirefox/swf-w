@@ -9,7 +9,7 @@
 namespace Vague\SwfWBundle\Decision\EventAttributes;
 
 
-use Vague\SwfWBundle\Interfaces\WrapperInterface;
+use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
 class ActivityTaskCompletedEventAttributes implements WrapperInterface
 {

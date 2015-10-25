@@ -8,34 +8,17 @@
 
 namespace Vague\SwfWBundle\Decision\EventAttributes;
 
-
-use Vague\SwfWBundle\Activity\ActivityType;
-use Vague\SwfWBundle\Interfaces\WrapperInterface;
-
-class ActivityTaskScheduledEventAttributes implements WrapperInterface
+class ActivityTaskScheduledEventAttributes extends ActivityTaskEventAttributes
 {
     const INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES = 'activityTaskScheduledEventAttributes';
+    const INDEX_DECISION_TASK_COMPLETED_EVENT_ID = '';
+    const INDEX_INPUT = 'input';
 
-    /**
-     * @var string
-     */
-    protected $activityId;
-    /**
-     * @var ActivityType
-     */
-    protected $activityType;
-    /**
-     * @var string
-     */
-    protected $control;
     /**
      * @var integer
      */
     protected $decisionTaskCompletedEventId;
-    /**
-     * @var string
-     */
-    protected $heartbeatTimeout;
+
     /**
      * @var string
      */
@@ -50,6 +33,15 @@ class ActivityTaskScheduledEventAttributes implements WrapperInterface
         if (array_key_exists(static::INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES, $source)) {
             $source = $source[static::INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES];
         }
+        return array(
+            static::INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES => array_merge(
+                parent::initFromArray($source),
+                array(
+                    static::INDEX_DECISION_TASK_COMPLETED_EVENT_ID => $this->decisionTaskCompletedEventId,
+                    static::INDEX_INPUT => $this->input,
+                )
+            ),
+        );
     }
 
     /**
