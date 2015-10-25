@@ -1,0 +1,7 @@
+{
+  "domain": "domainName",
+  "identity": "identityValue",
+  "taskList": {
+    "name": "taskListName"
+  }
+}
