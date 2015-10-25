@@ -6,7 +6,7 @@
  * Time: 5:21 PM
  */
 
-namespace Vague\SwfWBundle\Interfaces;
+namespace Vague\SwfWBundle\Interfaces\Common;
 
 
 interface WrapperInterface

@@ -9,7 +9,7 @@
 namespace Vague\SwfWBundle\Workflow;
 
 
-use Vague\SwfWBundle\Interfaces\WrapperInterface;
+use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
 class TaskList implements WrapperInterface
 {
@@ -20,14 +20,6 @@ class TaskList implements WrapperInterface
      * @var string
      */
     protected $name;
-
-    /**
-     * @param string $name
-     */
-    function __construct($name)
-    {
-        $this->name = $name;
-    }
 
     /**
      * @return string

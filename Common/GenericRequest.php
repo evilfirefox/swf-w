@@ -8,7 +8,7 @@
 
 namespace Vague\SwfWBundle\Common;
 
-use Vague\SwfWBundle\Interfaces\WrapperInterface;
+use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 use Vague\SwfWBundle\Workflow\TaskList;
 
 class GenericRequest implements WrapperInterface
@@ -85,6 +85,8 @@ class GenericRequest implements WrapperInterface
     {
         $this->domain = $source[static::INDEX_DOMAIN];
         $this->identity = $source[static::INDEX_IDENTITY];
+        $this->taskList = new TaskList();
+        $this->taskList->initFromArray($source);
     }
 
     /**
@@ -92,9 +94,9 @@ class GenericRequest implements WrapperInterface
      */
     public function convertToArray()
     {
-        return array(
+        return array_merge($this->taskList->convertToArray(), array(
             static::INDEX_DOMAIN => $this->domain,
             static::INDEX_IDENTITY => $this->identity,
-        );
+        ));
     }
 }
