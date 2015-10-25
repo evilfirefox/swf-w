@@ -32,7 +32,7 @@ class DecisionTask extends GenericTask implements WrapperInterface
      */
     protected $workflowType;
 
-    #region getters&setters
+    //region getters&setters
     /**
      * @return array
      */
@@ -96,9 +96,9 @@ class DecisionTask extends GenericTask implements WrapperInterface
     {
         $this->workflowType = $workflowType;
     }
-    #endregion
+    //endregion
 
-    # region WrapperInterface
+    //region WrapperInterface
     /**
      * @param array $source
      * @return mixed
@@ -115,5 +115,5 @@ class DecisionTask extends GenericTask implements WrapperInterface
     {
         // TODO: Implement convertToArray() method.
     }
-    #endregion
+    //endregion
 }
