@@ -15,8 +15,6 @@ use Vague\SwfWBundle\Workflow\TaskList;
 
 class DecisionPollRequestTest extends AbstractTestCase
 {
-    const INDEX_INPUT = 'input';
-    const INDEX_EXPECTATION = 'expectation';
     const FIXTURE_DECISION_POLL_REQUEST = 'decision-poll-request-mock.json';
 
     /**
@@ -43,7 +41,7 @@ class DecisionPollRequestTest extends AbstractTestCase
 
     public function initFromArrayDataProvider()
     {
-        $data = json_decode($this->loadFixtures(static::FIXTURE_DECISION_POLL_REQUEST), true);
+        $data = json_decode($this->loadFixture(static::FIXTURE_DECISION_POLL_REQUEST), true);
         $expectation = $this->createExpectationObject($data);
         return array(
             array(
@@ -57,7 +55,7 @@ class DecisionPollRequestTest extends AbstractTestCase
 
     public function convertToArrayDataProvider()
     {
-        $data = json_decode($this->loadFixtures(static::FIXTURE_DECISION_POLL_REQUEST), true);
+        $data = json_decode($this->loadFixture(static::FIXTURE_DECISION_POLL_REQUEST), true);
         return array(
             array(
                 'success' => array(
