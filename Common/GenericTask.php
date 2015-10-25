@@ -9,10 +9,14 @@
 namespace Vague\SwfWBundle\Common;
 
 
+use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 use Vague\SwfWBundle\Workflow\WorkflowExecution;
 
-class GenericTask
+class GenericTask implements WrapperInterface
 {
+    const INDEX_TASK_TOKEN = 'taskToken';
+    const INDEX_STARTED_EVENT_ID = 'startedEventId';
+
     /**
      * @var string
      */
@@ -72,5 +76,25 @@ class GenericTask
     public function setTaskToken($taskToken)
     {
         $this->taskToken = $taskToken;
+    }
+
+    /**
+     * @param array $source
+     * @return mixed
+     */
+    public function initFromArray(array $source)
+    {
+        $this->taskToken = $source[static::INDEX_TASK_TOKEN];
+        $this->startedEventId = $source[static::INDEX_STARTED_EVENT_ID];
+        $this->workflowExecution = new WorkflowExecution();
+        $this->workflowExecution->initFromArray($source);
+    }
+
+    /**
+     * @return array
+     */
+    public function convertToArray()
+    {
+        // TODO: Implement convertToArray() method.
     }
 }

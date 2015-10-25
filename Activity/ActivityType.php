@@ -8,7 +8,7 @@
 
 namespace Vague\SwfWBundle\Activity;
 
-use Vague\SwfWBundle\Interfaces\WrapperInterface;
+use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
 class ActivityType implements WrapperInterface
 {
@@ -25,17 +25,7 @@ class ActivityType implements WrapperInterface
     /**
      * @var string
      */
-    protected $version;
-
-    /**
-     * @param string $name
-     * @param string $version
-     */
-    function __construct($name, $version = self::DEFAULT_VERSION)
-    {
-        $this->name = $name;
-        $this->version = $version;
-    }
+    protected $version = self::DEFAULT_VERSION;
 
     /**
      * @return string
