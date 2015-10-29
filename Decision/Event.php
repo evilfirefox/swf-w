@@ -8,21 +8,40 @@
 
 namespace Vague\SwfWBundle\Decision;
 
-
-use Vague\SwfWBundle\Decision\EventAttributes\ActivityTaskCompletedEventAttributes;
-use Vague\SwfWBundle\Decision\EventAttributes\ActivityTaskScheduledEventAttributes;
-use Vague\SwfWBundle\Interfaces\WrapperInterface;
+use Vague\SwfWBundle\Activity\EventAttributes\ActivityTaskCompletedEventAttributes;
+use Vague\SwfWBundle\Activity\EventAttributes\ActivityTaskScheduledEventAttributes;
+use Vague\SwfWBundle\Activity\EventAttributes\ActivityTaskStartedEventAttributes;
+use Vague\SwfWBundle\Decision\EventAttributes\DecisionTaskCompletedEventAttributes;
+use Vague\SwfWBundle\Decision\EventAttributes\DecisionTaskScheduledEventAttributes;
+use Vague\SwfWBundle\Decision\EventAttributes\DecisionTaskStartedEventAttributes;
+use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
 class Event implements WrapperInterface
 {
+    /**
+     * @var ActivityTaskScheduledEventAttributes|null
+     */
+    protected $activityTaskScheduledEventAttributes;
+    /**
+     * @var ActivityTaskStartedEventAttributes|null
+     */
+    protected $activityTaskStartedEventAttributes;
     /**
      * @var ActivityTaskCompletedEventAttributes|null
      */
     protected $activityTaskCompletedEventAttributes;
     /**
-     * @var ActivityTaskScheduledEventAttributes|null
+     * @var DecisionTaskScheduledEventAttributes
      */
-    protected $activityTaskScheduledEventAttributes;
+    protected $decisionTaskScheduledEventAttributes;
+    /**
+     * @var DecisionTaskStartedEventAttributes
+     */
+    protected $decisionTaskStartedEventAttributes;
+    /**
+     * @var DecisionTaskCompletedEventAttributes
+     */
+    protected $decisionTaskCompletedEventAttributes;
 
     /**
      * @var string
