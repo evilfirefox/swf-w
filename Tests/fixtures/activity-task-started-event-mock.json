@@ -1,0 +1,9 @@
+{
+  "eventTimestamp": "2015-10-27T10:57:23+00:00",
+  "eventType": "ActivityTaskStarted",
+  "eventId": 6,
+  "activityTaskStartedEventAttributes": {
+    "identity": "562de78681afc",
+    "scheduledEventId": 5
+  }
+}
