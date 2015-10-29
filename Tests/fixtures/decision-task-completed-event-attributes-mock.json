@@ -1,0 +1,7 @@
+{
+  "decisionTaskCompletedEventAttributes": {
+    "scheduledEventId": 2,
+    "startedEventId": 3,
+    "executionContext": "contextValue"
+  }
+}

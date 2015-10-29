@@ -1,0 +1,10 @@
+{
+  "eventTimestamp": "2015-10-27T10:57:23+00:00",
+  "eventType": "DecisionTaskCompleted",
+  "eventId": 4,
+  "decisionTaskCompletedEventAttributes": {
+    "scheduledEventId": 2,
+    "startedEventId": 3,
+    "executionContext": "contextValue"
+  }
+}

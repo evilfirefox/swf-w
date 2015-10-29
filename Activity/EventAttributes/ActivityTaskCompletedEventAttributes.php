@@ -6,10 +6,10 @@
  * Time: 16:19
  */
 
-namespace Vague\SwfWBundle\Decision\EventAttributes;
+namespace Vague\SwfWBundle\Activity\EventAttributes;
 
 
-use Vague\SwfWBundle\Interfaces\WrapperInterface;
+use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
 class ActivityTaskCompletedEventAttributes implements WrapperInterface
 {

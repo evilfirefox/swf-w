@@ -1,0 +1,19 @@
+{
+  "activityTaskScheduledEventAttributes": {
+    "activityType": {
+      "name": "convert2Pdf",
+      "version": "1.0"
+    },
+    "decisionTaskCompletedEventId": 4,
+    "activityId": "562f5893e3684",
+    "input": "abc",
+    "scheduleToStartTimeout": "120",
+    "scheduleToCloseTimeout": "120",
+    "startToCloseTimeout": "120",
+    "heartbeatTimeout": "120",
+    "taskPriority": 1,
+    "taskList": {
+      "name": "pocTasklist"
+    }
+  }
+}

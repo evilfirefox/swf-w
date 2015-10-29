@@ -1,0 +1,9 @@
+{
+  "decisionTaskScheduledEventAttributes": {
+    "taskList": {
+      "name": "pocTasklist"
+    },
+    "taskPriority": "1",
+    "startToCloseTimeout": "180"
+  }
+}
