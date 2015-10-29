@@ -6,11 +6,11 @@
  * Time: 12:17 AM
  */
 
-namespace Decision\EventAttributes;
+namespace Vague\SwfWBundle\Tests\Activity\EventAttributes;
 
 
 use Vague\SwfWBundle\Activity\ActivityType;
-use Vague\SwfWBundle\Decision\EventAttributes\ActivityTaskScheduledEventAttributes;
+use Vague\SwfWBundle\Activity\EventAttributes\ActivityTaskScheduledEventAttributes;
 use Vague\SwfWBundle\Tests\AbstractTestCase;
 use Vague\SwfWBundle\Workflow\TaskList;
 

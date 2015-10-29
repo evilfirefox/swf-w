@@ -6,7 +6,7 @@
  * Time: 11:51 PM
  */
 
-namespace Decision\EventAttributes;
+namespace Vague\SwfWBundle\Tests\Decision\EventAttributes;
 
 
 use Vague\SwfWBundle\Decision\EventAttributes\DecisionTaskStartedEventAttributes;

@@ -6,7 +6,7 @@
  * Time: 17:16
  */
 
-namespace Vague\SwfWBundle\Decision\EventAttributes;
+namespace Vague\SwfWBundle\Activity\EventAttributes;
 
 use Vague\SwfWBundle\Activity\ActivityType;
 use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
