@@ -18,6 +18,11 @@ use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
 class Event implements WrapperInterface
 {
+    const INDEX_EVENTS = 'events';
+    const INDEX_EVENT_ID = 'eventId';
+    const INDEX_EVENT_TIMESTAMP = 'eventTimestamp';
+    const INDEX_EVENT_TYPE = 'eventType';
+
     /**
      * @var ActivityTaskScheduledEventAttributes|null
      */
@@ -51,6 +56,10 @@ class Event implements WrapperInterface
      * @var string
      */
     protected $eventType;
+    /**
+     * @var string
+     */
+    protected $eventTimestamp;
 
     /**
      * @param array $source
@@ -58,7 +67,24 @@ class Event implements WrapperInterface
      */
     public function initFromArray(array $source)
     {
-        // TODO: Implement initFromArray() method.
+        if (array_key_exists(static::INDEX_EVENTS, $source)) {
+            $source = $source[static::INDEX_EVENTS];
+        }
+        $this->activityTaskScheduledEventAttributes = new ActivityTaskScheduledEventAttributes();
+        $this->activityTaskScheduledEventAttributes->initFromArray($source);
+        $this->activityTaskStartedEventAttributes = new ActivityTaskStartedEventAttributes();
+        $this->activityTaskStartedEventAttributes->initFromArray($source);
+        $this->activityTaskCompletedEventAttributes = new ActivityTaskCompletedEventAttributes();
+        $this->activityTaskCompletedEventAttributes->initFromArray($source);
+        $this->decisionTaskScheduledEventAttributes = new DecisionTaskScheduledEventAttributes();
+        $this->decisionTaskScheduledEventAttributes->initFromArray($source);
+        $this->decisionTaskStartedEventAttributes = new DecisionTaskStartedEventAttributes();
+        $this->decisionTaskStartedEventAttributes->initFromArray($source);
+        $this->decisionTaskCompletedEventAttributes = new DecisionTaskCompletedEventAttributes();
+        $this->decisionTaskCompletedEventAttributes->initFromArray($source);
+        $this->eventId = $source[static::INDEX_EVENT_ID];
+        $this->eventTimestamp = $source[static::INDEX_EVENT_TIMESTAMP];
+        $this->eventType = $source[static::INDEX_EVENT_TYPE];
     }
 
     /**
@@ -66,6 +92,23 @@ class Event implements WrapperInterface
      */
     public function convertToArray()
     {
-        // TODO: Implement convertToArray() method.
+        $result = array(
+            static::INDEX_EVENT_ID => $this->eventId,
+            static::INDEX_EVENT_TYPE => $this->eventType,
+            static::INDEX_EVENT_TIMESTAMP => $this->eventTimestamp,
+        );
+        $result = array_merge(
+            $result,
+            $this->activityTaskScheduledEventAttributes->convertToArray(),
+            $this->activityTaskStartedEventAttributes->convertToArray(),
+            $this->activityTaskCompletedEventAttributes->convertToArray()
+        );
+        $result = array_merge(
+            $result,
+            $this->decisionTaskScheduledEventAttributes->convertToArray(),
+            $this->decisionTaskStartedEventAttributes->convertToArray(),
+            $this->decisionTaskCompletedEventAttributes->convertToArray()
+        );
+        return $result;
     }
 }
