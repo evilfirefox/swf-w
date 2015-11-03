@@ -9,11 +9,11 @@
 namespace Vague\SwfWBundle\Activity\EventAttributes;
 
 
-use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
+use Vague\SwfWBundle\Common\GenericWrapper;
 
-class ActivityTaskCompletedEventAttributes implements WrapperInterface
+class ActivityTaskCompletedEventAttributes extends GenericWrapper
 {
-    const INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE = 'activityTaskCompletedEventAttributes';
+    const INDEX_WRAPPER = 'activityTaskCompletedEventAttributes';
     const INDEX_RESULT = 'result';
     const INDEX_SCHEDULED_EVENT_ID = 'scheduledEventId';
     const INDEX_STARTED_EVENT_ID = 'startedEventId';
@@ -83,23 +83,26 @@ class ActivityTaskCompletedEventAttributes implements WrapperInterface
      * @param array $source
      * @return mixed
      */
-    public function initFromArray(array $source)
-    {
-        if (array_key_exists(static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE, $source)) {
-            $source = $source[static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE];
-        }
-        $this->result = $source[static::INDEX_RESULT];
-        $this->scheduledEventId = $source[static::INDEX_SCHEDULED_EVENT_ID];
-        $this->startedEventId = $source[static::INDEX_STARTED_EVENT_ID];
-    }
+    /*    public function initFromArray(array $source)
+        {
+            if (array_key_exists(static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE, $source)) {
+                $source = $source[static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE];
+            } else {
+                return;
+            }
+            $this->result = $source[static::INDEX_RESULT];
+            $this->scheduledEventId = $source[static::INDEX_SCHEDULED_EVENT_ID];
+            $this->startedEventId = $source[static::INDEX_STARTED_EVENT_ID];
+        }*/
 
     /**
      * @return array
      */
     public function convertToArray()
     {
+        parent::convertToArray();
         return array(
-            static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE => array(
+            static::INDEX_WRAPPER => array(
                 static::INDEX_RESULT => $this->result,
                 static::INDEX_STARTED_EVENT_ID => $this->startedEventId,
                 static::INDEX_SCHEDULED_EVENT_ID => $this->scheduledEventId,
