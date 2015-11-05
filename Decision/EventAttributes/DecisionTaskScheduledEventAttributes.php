@@ -9,12 +9,12 @@
 namespace Vague\SwfWBundle\Decision\EventAttributes;
 
 
-use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
+use Vague\SwfWBundle\Common\GenericWrapper;
 use Vague\SwfWBundle\Workflow\TaskList;
 
-class DecisionTaskScheduledEventAttributes implements WrapperInterface
+class DecisionTaskScheduledEventAttributes extends GenericWrapper
 {
-    const INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES = 'decisionTaskScheduledEventAttributes';
+    const INDEX_WRAPPER = 'decisionTaskScheduledEventAttributes';
     const INDEX_START_TO_CLOSE_TIMEOUT = 'startToCloseTimeout';
     const INDEX_TASK_PRIORITY = 'taskPriority';
 
@@ -80,27 +80,15 @@ class DecisionTaskScheduledEventAttributes implements WrapperInterface
     }
 
     /**
-     * @param array $source
-     * @return mixed
-     */
-    public function initFromArray(array $source)
-    {
-        if (array_key_exists(static::INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES, $source)) {
-            $source = $source[static::INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES];
-        }
-        $this->taskList = new TaskList();
-        $this->taskList->initFromArray($source);
-        $this->taskPriority = $source[static::INDEX_TASK_PRIORITY];
-        $this->startToCloseTimeout = $source[static::INDEX_START_TO_CLOSE_TIMEOUT];
-    }
-
-    /**
      * @return array
      */
     public function convertToArray()
     {
+        if (!$this->isInitialized) {
+            return null;
+        }
         return array(
-            static::INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES =>
+            static::INDEX_WRAPPER =>
                 array_merge(
                     $this->taskList->convertToArray(),
                     array(

@@ -11,7 +11,7 @@ namespace Vague\SwfWBundle\Common;
 
 use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
-class GenericWrapper implements WrapperInterface
+abstract class GenericWrapper implements WrapperInterface
 {
     const INDEX_WRAPPER = 'wrapper';
     /**
@@ -21,11 +21,12 @@ class GenericWrapper implements WrapperInterface
 
     /**
      * @param array $source
+     * @return mixed|null
      */
     public function initFromArray(array $source)
     {
         if (!array_key_exists(static::INDEX_WRAPPER, $source)) {
-            return null;
+            return;
         }
         $source = $source[static::INDEX_WRAPPER];
         foreach ($source as $key => $value) {

@@ -100,7 +100,9 @@ class ActivityTaskCompletedEventAttributes extends GenericWrapper
      */
     public function convertToArray()
     {
-        parent::convertToArray();
+        if (!$this->isInitialized) {
+            return null;
+        }
         return array(
             static::INDEX_WRAPPER => array(
                 static::INDEX_RESULT => $this->result,
