@@ -25,6 +25,10 @@ class ActivityTaskStartedEventAttributes implements WrapperInterface
      * @var int
      */
     protected $scheduledEventId;
+    /**
+     * @var bool
+     */
+    protected $isEmpty = true;
 
     /**
      * @return string
@@ -59,16 +63,34 @@ class ActivityTaskStartedEventAttributes implements WrapperInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isIsEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * @param boolean $isEmpty
+     */
+    public function setIsEmpty($isEmpty)
+    {
+        $this->isEmpty = $isEmpty;
+    }
+
+    /**
      * @param array $source
      * @return mixed
      */
     public function initFromArray(array $source)
     {
-        if (array_key_exists(static::INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES, $source)) {
-            $source = $source[static::INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES];
+        if (!array_key_exists(static::INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES, $source)) {
+            return;
         }
+        $source = $source[static::INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES];
         $this->identity = $source[static::INDEX_IDENTITY];
         $this->scheduledEventId = $source[static::INDEX_SCHEDULED_EVENT_ID];
+        $this->isEmpty = false;
     }
 
     /**
@@ -76,6 +98,9 @@ class ActivityTaskStartedEventAttributes implements WrapperInterface
      */
     public function convertToArray()
     {
+        if ($this->isEmpty) {
+            return array();
+        }
         return array(
             static::INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES => array(
                 static::INDEX_IDENTITY => $this->identity,

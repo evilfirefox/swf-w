@@ -30,6 +30,10 @@ class ActivityTaskCompletedEventAttributes implements WrapperInterface
      * @var integer
      */
     protected $startedEventId;
+    /**
+     * @var bool
+     */
+    protected $isEmpty = true;
 
     /**
      * @return string
@@ -80,17 +84,35 @@ class ActivityTaskCompletedEventAttributes implements WrapperInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isIsEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * @param boolean $isEmpty
+     */
+    public function setIsEmpty($isEmpty)
+    {
+        $this->isEmpty = $isEmpty;
+    }
+
+    /**
      * @param array $source
      * @return mixed
      */
     public function initFromArray(array $source)
     {
-        if (array_key_exists(static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE, $source)) {
-            $source = $source[static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE];
+        if (!array_key_exists(static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE, $source)) {
+            return;
         }
+        $source = $source[static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE];
         $this->result = $source[static::INDEX_RESULT];
         $this->scheduledEventId = $source[static::INDEX_SCHEDULED_EVENT_ID];
         $this->startedEventId = $source[static::INDEX_STARTED_EVENT_ID];
+        $this->isEmpty = false;
     }
 
     /**
@@ -98,6 +120,9 @@ class ActivityTaskCompletedEventAttributes implements WrapperInterface
      */
     public function convertToArray()
     {
+        if ($this->isEmpty) {
+            return array();
+        }
         return array(
             static::INDEX_ACTIVITY_TASK_COMPLETED_EVENT_ATTRIBUTE => array(
                 static::INDEX_RESULT => $this->result,

@@ -35,6 +35,7 @@ class ActivityTaskStartedEventAttributesTest extends AbstractTestCase
         $expectation = new ActivityTaskStartedEventAttributes();
         $expectation->setIdentity('562de78681afc');
         $expectation->setScheduledEventId(5);
+        $expectation->setIsEmpty(false);
         return array(
             array(
                 'success1' => array(

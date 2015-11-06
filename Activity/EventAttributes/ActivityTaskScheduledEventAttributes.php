@@ -64,6 +64,10 @@ class ActivityTaskScheduledEventAttributes implements WrapperInterface
      * @var string
      */
     protected $scheduleToCloseTimeout;
+    /**
+     * @var bool
+     */
+    protected $isEmpty = true;
 
     /**
      * @return string
@@ -226,14 +230,31 @@ class ActivityTaskScheduledEventAttributes implements WrapperInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isIsEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * @param boolean $isEmpty
+     */
+    public function setIsEmpty($isEmpty = true)
+    {
+        $this->isEmpty = $isEmpty;
+    }
+
+    /**
      * @param array $source
      * @return mixed
      */
     public function initFromArray(array $source)
     {
-        if (array_key_exists(static::INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES, $source)) {
-            $source = $source[static::INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES];
+        if (!array_key_exists(static::INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES, $source)) {
+            return;
         }
+        $source = $source[static::INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES];
         $this->activityId = $source[static::INDEX_ACTIVITY_ID];
         $this->activityType = new ActivityType();
         $this->activityType->initFromArray($source);
@@ -246,6 +267,7 @@ class ActivityTaskScheduledEventAttributes implements WrapperInterface
         $this->scheduleToCloseTimeout = $source[static::INDEX_SCHEDULE_TO_CLOSE_TIMEOUT];
         $this->taskPriority = $source[static::INDEX_TASK_PRIORITY];
         $this->decisionTaskCompletedEventId = $source[static::INDEX_DECISION_TASK_COMPLETED_EVENT_ID];
+        $this->isEmpty = false;
     }
 
     /**
@@ -253,6 +275,9 @@ class ActivityTaskScheduledEventAttributes implements WrapperInterface
      */
     public function convertToArray()
     {
+        if ($this->isEmpty) {
+            return array();
+        }
         return array(
             static::INDEX_ACTIVITY_TASK_SCHEDULED_EVENT_ATTRIBUTES => array_merge(
                 array(
