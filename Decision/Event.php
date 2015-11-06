@@ -60,6 +60,170 @@ class Event implements WrapperInterface
      * @var string
      */
     protected $eventTimestamp;
+    /**
+     * @var bool
+     */
+    protected $isEmpty = true;
+
+    /**
+     * @return null|ActivityTaskScheduledEventAttributes
+     */
+    public function getActivityTaskScheduledEventAttributes()
+    {
+        return $this->activityTaskScheduledEventAttributes;
+    }
+
+    /**
+     * @param null|ActivityTaskScheduledEventAttributes $activityTaskScheduledEventAttributes
+     */
+    public function setActivityTaskScheduledEventAttributes($activityTaskScheduledEventAttributes)
+    {
+        $this->activityTaskScheduledEventAttributes = $activityTaskScheduledEventAttributes;
+    }
+
+    /**
+     * @return null|ActivityTaskStartedEventAttributes
+     */
+    public function getActivityTaskStartedEventAttributes()
+    {
+        return $this->activityTaskStartedEventAttributes;
+    }
+
+    /**
+     * @param null|ActivityTaskStartedEventAttributes $activityTaskStartedEventAttributes
+     */
+    public function setActivityTaskStartedEventAttributes($activityTaskStartedEventAttributes)
+    {
+        $this->activityTaskStartedEventAttributes = $activityTaskStartedEventAttributes;
+    }
+
+    /**
+     * @return null|ActivityTaskCompletedEventAttributes
+     */
+    public function getActivityTaskCompletedEventAttributes()
+    {
+        return $this->activityTaskCompletedEventAttributes;
+    }
+
+    /**
+     * @param null|ActivityTaskCompletedEventAttributes $activityTaskCompletedEventAttributes
+     */
+    public function setActivityTaskCompletedEventAttributes($activityTaskCompletedEventAttributes)
+    {
+        $this->activityTaskCompletedEventAttributes = $activityTaskCompletedEventAttributes;
+    }
+
+    /**
+     * @return DecisionTaskScheduledEventAttributes
+     */
+    public function getDecisionTaskScheduledEventAttributes()
+    {
+        return $this->decisionTaskScheduledEventAttributes;
+    }
+
+    /**
+     * @param DecisionTaskScheduledEventAttributes $decisionTaskScheduledEventAttributes
+     */
+    public function setDecisionTaskScheduledEventAttributes($decisionTaskScheduledEventAttributes)
+    {
+        $this->decisionTaskScheduledEventAttributes = $decisionTaskScheduledEventAttributes;
+    }
+
+    /**
+     * @return DecisionTaskStartedEventAttributes
+     */
+    public function getDecisionTaskStartedEventAttributes()
+    {
+        return $this->decisionTaskStartedEventAttributes;
+    }
+
+    /**
+     * @param DecisionTaskStartedEventAttributes $decisionTaskStartedEventAttributes
+     */
+    public function setDecisionTaskStartedEventAttributes($decisionTaskStartedEventAttributes)
+    {
+        $this->decisionTaskStartedEventAttributes = $decisionTaskStartedEventAttributes;
+    }
+
+    /**
+     * @return DecisionTaskCompletedEventAttributes
+     */
+    public function getDecisionTaskCompletedEventAttributes()
+    {
+        return $this->decisionTaskCompletedEventAttributes;
+    }
+
+    /**
+     * @param DecisionTaskCompletedEventAttributes $decisionTaskCompletedEventAttributes
+     */
+    public function setDecisionTaskCompletedEventAttributes($decisionTaskCompletedEventAttributes)
+    {
+        $this->decisionTaskCompletedEventAttributes = $decisionTaskCompletedEventAttributes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEventId()
+    {
+        return $this->eventId;
+    }
+
+    /**
+     * @param string $eventId
+     */
+    public function setEventId($eventId)
+    {
+        $this->eventId = $eventId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEventType()
+    {
+        return $this->eventType;
+    }
+
+    /**
+     * @param string $eventType
+     */
+    public function setEventType($eventType)
+    {
+        $this->eventType = $eventType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEventTimestamp()
+    {
+        return $this->eventTimestamp;
+    }
+
+    /**
+     * @param string $eventTimestamp
+     */
+    public function setEventTimestamp($eventTimestamp)
+    {
+        $this->eventTimestamp = $eventTimestamp;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIsEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * @param boolean $isEmpty
+     */
+    public function setIsEmpty($isEmpty)
+    {
+        $this->isEmpty = $isEmpty;
+    }
 
     /**
      * @param array $source
@@ -67,9 +231,6 @@ class Event implements WrapperInterface
      */
     public function initFromArray(array $source)
     {
-        if (array_key_exists(static::INDEX_EVENTS, $source)) {
-            $source = $source[static::INDEX_EVENTS];
-        }
         $this->activityTaskScheduledEventAttributes = new ActivityTaskScheduledEventAttributes();
         $this->activityTaskScheduledEventAttributes->initFromArray($source);
         $this->activityTaskStartedEventAttributes = new ActivityTaskStartedEventAttributes();
@@ -78,13 +239,14 @@ class Event implements WrapperInterface
         $this->activityTaskCompletedEventAttributes->initFromArray($source);
         $this->decisionTaskScheduledEventAttributes = new DecisionTaskScheduledEventAttributes();
         $this->decisionTaskScheduledEventAttributes->initFromArray($source);
-        $this->decisionTaskStartedEventAttributes = new DecisionTaskStartedEventAttributes();
+        /*$this->decisionTaskStartedEventAttributes = new DecisionTaskStartedEventAttributes();
         $this->decisionTaskStartedEventAttributes->initFromArray($source);
         $this->decisionTaskCompletedEventAttributes = new DecisionTaskCompletedEventAttributes();
-        $this->decisionTaskCompletedEventAttributes->initFromArray($source);
+        $this->decisionTaskCompletedEventAttributes->initFromArray($source);*/
         $this->eventId = $source[static::INDEX_EVENT_ID];
         $this->eventTimestamp = $source[static::INDEX_EVENT_TIMESTAMP];
         $this->eventType = $source[static::INDEX_EVENT_TYPE];
+        $this->isEmpty = false;
     }
 
     /**
@@ -92,6 +254,9 @@ class Event implements WrapperInterface
      */
     public function convertToArray()
     {
+        if ($this->isEmpty) {
+            return null;
+        }
         $result = array(
             static::INDEX_EVENT_ID => $this->eventId,
             static::INDEX_EVENT_TYPE => $this->eventType,
@@ -105,9 +270,9 @@ class Event implements WrapperInterface
         );
         $result = array_merge(
             $result,
-            $this->decisionTaskScheduledEventAttributes->convertToArray(),
+            $this->decisionTaskScheduledEventAttributes->convertToArray()/*,
             $this->decisionTaskStartedEventAttributes->convertToArray(),
-            $this->decisionTaskCompletedEventAttributes->convertToArray()
+            $this->decisionTaskCompletedEventAttributes->convertToArray()*/
         );
         return $result;
     }

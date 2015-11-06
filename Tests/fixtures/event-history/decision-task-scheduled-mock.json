@@ -1,0 +1,10 @@
+{
+  "eventTimestamp": "2015-10-27T10:57:11+00:00",
+  "eventType": "DecisionTaskScheduled",
+  "eventId": 2,
+  "decisionTaskScheduledEventAttributes": {
+    "taskList": {"name": "pocTasklist"},
+    "taskPriority": "1",
+    "startToCloseTimeout": "180"
+  }
+}
