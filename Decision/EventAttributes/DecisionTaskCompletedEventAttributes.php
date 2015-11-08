@@ -31,6 +31,10 @@ class DecisionTaskCompletedEventAttributes implements WrapperInterface
      * @var int
      */
     protected $startedEventId;
+    /**
+     * @var bool
+     */
+    protected $isEmpty = true;
 
     /**
      * @return string
@@ -81,17 +85,35 @@ class DecisionTaskCompletedEventAttributes implements WrapperInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isIsEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * @param boolean $isEmpty
+     */
+    public function setIsEmpty($isEmpty = true)
+    {
+        $this->isEmpty = $isEmpty;
+    }
+
+    /**
      * @param array $source
      * @return mixed
      */
     public function initFromArray(array $source)
     {
-        if (array_key_exists(static::INDEX_DECISION_TASK_COMPLETED, $source)) {
-            $source = $source[static::INDEX_DECISION_TASK_COMPLETED];
+        if (!array_key_exists(static::INDEX_DECISION_TASK_COMPLETED, $source)) {
+            return;
         }
+        $source = $source[static::INDEX_DECISION_TASK_COMPLETED];
         $this->executionContext = $source[static::INDEX_EXECUTION_CONTEXT];
         $this->startedEventId = $source[static::INDEX_STARTED_EVENT_ID];
         $this->scheduledEventId = $source[static::INDEX_SCHEDULED_EVENT_ID];
+        $this->isEmpty = false;
     }
 
     /**
@@ -99,6 +121,9 @@ class DecisionTaskCompletedEventAttributes implements WrapperInterface
      */
     public function convertToArray()
     {
+        if ($this->isEmpty) {
+            return array();
+        }
         return array(
             static::INDEX_DECISION_TASK_COMPLETED => array(
                 static::INDEX_EXECUTION_CONTEXT => $this->executionContext,

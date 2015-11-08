@@ -48,7 +48,7 @@ class ActivityTaskScheduledEventAttributesTest extends AbstractTestCase
         $expectation->setScheduleToStartTimeout('120');
         $expectation->setTaskPriority(1);
         $expectation->setStartToCloseTimeout('120');
-
+        $expectation->setIsEmpty(false);
         return array(
             array(
                 'success' => array(

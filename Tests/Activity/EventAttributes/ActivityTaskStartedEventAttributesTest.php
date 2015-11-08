@@ -3,19 +3,19 @@
  * Created by PhpStorm.
  * User: devastator
  * Date: 30/10/2015
- * Time: 12:04 AM
+ * Time: 12:45 AM
  */
 
-namespace Vague\SwfWBundle\Tests\Decision\EventAttributes;
+namespace Activity\EventAttributes;
 
 
-use Vague\SwfWBundle\Decision\EventAttributes\DecisionTaskCompletedEventAttributes;
+use Vague\SwfWBundle\Activity\EventAttributes\ActivityTaskStartedEventAttributes;
 use Vague\SwfWBundle\Tests\AbstractTestCase;
 
-class DecisionTaskCompletedEventAttributesTest extends AbstractTestCase
+class ActivityTaskStartedEventAttributesTest extends AbstractTestCase
 {
-    const FILE_FIXTURE_COMPLETE = 'decision-task-completed-event-mock.json';
-    const FILE_FIXTURE_ATTR = 'decision-task-completed-event-attributes-mock.json';
+    const FILE_FIXTURE_FULL = 'activity-task-started-event-mock.json';
+    const FILE_FIXTURE_ATTR = 'activity-task-started-event-attributes-mock.json';
 
     /**
      * @param array $data
@@ -30,20 +30,19 @@ class DecisionTaskCompletedEventAttributesTest extends AbstractTestCase
 
     public function initFromArrayDataProvider()
     {
-        $dataFull = json_decode($this->loadFixture(static::FILE_FIXTURE_COMPLETE), true);
+        $dataFull = json_decode($this->loadFixture(static::FILE_FIXTURE_FULL), true);
         $dataAttr = json_decode($this->loadFixture(static::FILE_FIXTURE_ATTR), true);
-        $expectation = new DecisionTaskCompletedEventAttributes();
-        $expectation->setScheduledEventId(2);
-        $expectation->setStartedEventId(3);
-        $expectation->setExecutionContext('contextValue');
+        $expectation = new ActivityTaskStartedEventAttributes();
+        $expectation->setIdentity('562de78681afc');
+        $expectation->setScheduledEventId(5);
         $expectation->setIsEmpty(false);
         return array(
             array(
-                'success-full' => array(
+                'success1' => array(
                     static::INDEX_INPUT => $dataFull,
                     static::INDEX_EXPECTATION => $expectation,
                 ),
-                'success-attr' => array(
+                'success2' => array(
                     static::INDEX_INPUT => $dataAttr,
                     static::INDEX_EXPECTATION => $expectation,
                 ),
@@ -66,12 +65,13 @@ class DecisionTaskCompletedEventAttributesTest extends AbstractTestCase
 
     public function convertToArrayDataProvider()
     {
-        $dataAttr = json_decode($this->loadFixture(static::FILE_FIXTURE_ATTR), true);
+        $testData = json_decode($this->loadFixture(static::FILE_FIXTURE_ATTR), true);
+
         return array(
             array(
                 'success' => array(
-                    static::INDEX_INPUT => $dataAttr,
-                    static::INDEX_EXPECTATION => $dataAttr,
+                    static::INDEX_INPUT => $testData,
+                    static::INDEX_EXPECTATION => $testData,
                 ),
             ),
         );
@@ -79,7 +79,6 @@ class DecisionTaskCompletedEventAttributesTest extends AbstractTestCase
 
     protected function createTestObject()
     {
-        return new DecisionTaskCompletedEventAttributes();
+        return new ActivityTaskStartedEventAttributes();
     }
-
 }

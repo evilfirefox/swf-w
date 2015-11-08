@@ -2,20 +2,25 @@
 /**
  * Created by PhpStorm.
  * User: devastator
- * Date: 28/10/2015
- * Time: 11:37 PM
+ * Date: 30/10/2015
+ * Time: 12:35 AM
  */
 
-namespace Vague\SwfWBundle\Decision\EventAttributes;
+namespace Vague\SwfWBundle\Activity\EventAttributes;
 
 
 use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
-class DecisionTaskStartedEventAttributes implements WrapperInterface
+class ActivityTaskStartedEventAttributes implements WrapperInterface
 {
-    const INDEX_DECISION_TASK_STARTED = 'decisionTaskStartedEventAttributes';
+    const INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES = 'activityTaskStartedEventAttributes';
+    const INDEX_IDENTITY = 'identity';
     const INDEX_SCHEDULED_EVENT_ID = 'scheduledEventId';
 
+    /**
+     * @var string
+     */
+    protected $identity;
     /**
      * @var int
      */
@@ -24,6 +29,22 @@ class DecisionTaskStartedEventAttributes implements WrapperInterface
      * @var bool
      */
     protected $isEmpty = true;
+
+    /**
+     * @return string
+     */
+    public function getIdentity()
+    {
+        return $this->identity;
+    }
+
+    /**
+     * @param string $identity
+     */
+    public function setIdentity($identity)
+    {
+        $this->identity = $identity;
+    }
 
     /**
      * @return int
@@ -52,7 +73,7 @@ class DecisionTaskStartedEventAttributes implements WrapperInterface
     /**
      * @param boolean $isEmpty
      */
-    public function setIsEmpty($isEmpty = true)
+    public function setIsEmpty($isEmpty)
     {
         $this->isEmpty = $isEmpty;
     }
@@ -63,10 +84,11 @@ class DecisionTaskStartedEventAttributes implements WrapperInterface
      */
     public function initFromArray(array $source)
     {
-        if (!array_key_exists(static::INDEX_DECISION_TASK_STARTED, $source)) {
+        if (!array_key_exists(static::INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES, $source)) {
             return;
         }
-        $source = $source[static::INDEX_DECISION_TASK_STARTED];
+        $source = $source[static::INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES];
+        $this->identity = $source[static::INDEX_IDENTITY];
         $this->scheduledEventId = $source[static::INDEX_SCHEDULED_EVENT_ID];
         $this->isEmpty = false;
     }
@@ -80,7 +102,8 @@ class DecisionTaskStartedEventAttributes implements WrapperInterface
             return array();
         }
         return array(
-            static::INDEX_DECISION_TASK_STARTED => array(
+            static::INDEX_ACTIVITY_TASK_STARTER_EVENT_ATTRIBUTES => array(
+                static::INDEX_IDENTITY => $this->identity,
                 static::INDEX_SCHEDULED_EVENT_ID => $this->scheduledEventId,
             ),
         );

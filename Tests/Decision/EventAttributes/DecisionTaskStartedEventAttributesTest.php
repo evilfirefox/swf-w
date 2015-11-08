@@ -34,6 +34,7 @@ class DecisionTaskStartedEventAttributesTest extends AbstractTestCase
         $dataAttr = json_decode($this->loadFixture(static::FILE_FIXTURE_2), true);
         $expectation = new DecisionTaskStartedEventAttributes();
         $expectation->setScheduledEventId(2);
+        $expectation->setIsEmpty(false);
         return array(
             array(
                 'success-full' => array(

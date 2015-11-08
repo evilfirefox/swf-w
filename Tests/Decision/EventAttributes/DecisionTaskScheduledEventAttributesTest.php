@@ -39,6 +39,7 @@ class DecisionTaskScheduledEventAttributesTest extends AbstractTestCase
         $expectation->setStartToCloseTimeout(180);
         $expectation->setTaskPriority(1);
         $expectation->setTaskList($taskList);
+        $expectation->setIsEmpty(false);
         return array(
             array(
                 'success-full' => array(

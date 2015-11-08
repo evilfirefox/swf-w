@@ -30,6 +30,10 @@ class DecisionTaskScheduledEventAttributes implements WrapperInterface
      * @var int
      */
     protected $taskPriority;
+    /**
+     * @var bool
+     */
+    protected $isEmpty = true;
 
     /**
      * @return string
@@ -80,18 +84,36 @@ class DecisionTaskScheduledEventAttributes implements WrapperInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isIsEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * @param boolean $isEmpty
+     */
+    public function setIsEmpty($isEmpty)
+    {
+        $this->isEmpty = $isEmpty;
+    }
+
+    /**
      * @param array $source
      * @return mixed
      */
     public function initFromArray(array $source)
     {
-        if (array_key_exists(static::INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES, $source)) {
-            $source = $source[static::INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES];
+        if (!array_key_exists(static::INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES, $source)) {
+            return;
         }
+        $source = $source[static::INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES];
         $this->taskList = new TaskList();
         $this->taskList->initFromArray($source);
         $this->taskPriority = $source[static::INDEX_TASK_PRIORITY];
         $this->startToCloseTimeout = $source[static::INDEX_START_TO_CLOSE_TIMEOUT];
+        $this->isEmpty = false;
     }
 
     /**
@@ -99,6 +121,9 @@ class DecisionTaskScheduledEventAttributes implements WrapperInterface
      */
     public function convertToArray()
     {
+        if ($this->isEmpty) {
+            return array();
+        }
         return array(
             static::INDEX_DECISION_TASK_SCHEDULED_EVENT_ATTRIBUTES =>
                 array_merge(
