@@ -239,10 +239,10 @@ class Event implements WrapperInterface
         $this->activityTaskCompletedEventAttributes->initFromArray($source);
         $this->decisionTaskScheduledEventAttributes = new DecisionTaskScheduledEventAttributes();
         $this->decisionTaskScheduledEventAttributes->initFromArray($source);
-        /*$this->decisionTaskStartedEventAttributes = new DecisionTaskStartedEventAttributes();
+        $this->decisionTaskStartedEventAttributes = new DecisionTaskStartedEventAttributes();
         $this->decisionTaskStartedEventAttributes->initFromArray($source);
         $this->decisionTaskCompletedEventAttributes = new DecisionTaskCompletedEventAttributes();
-        $this->decisionTaskCompletedEventAttributes->initFromArray($source);*/
+        $this->decisionTaskCompletedEventAttributes->initFromArray($source);
         $this->eventId = $source[static::INDEX_EVENT_ID];
         $this->eventTimestamp = $source[static::INDEX_EVENT_TIMESTAMP];
         $this->eventType = $source[static::INDEX_EVENT_TYPE];
@@ -270,9 +270,9 @@ class Event implements WrapperInterface
         );
         $result = array_merge(
             $result,
-            $this->decisionTaskScheduledEventAttributes->convertToArray()/*,
+            $this->decisionTaskScheduledEventAttributes->convertToArray(),
             $this->decisionTaskStartedEventAttributes->convertToArray(),
-            $this->decisionTaskCompletedEventAttributes->convertToArray()*/
+            $this->decisionTaskCompletedEventAttributes->convertToArray()
         );
         return $result;
     }

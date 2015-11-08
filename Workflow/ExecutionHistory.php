@@ -9,13 +9,14 @@
 namespace Vague\SwfWBundle\Workflow;
 
 
+use Vague\SwfWBundle\Decision\Event;
 use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
 
 class ExecutionHistory implements WrapperInterface
 {
 
     /**
-     * @var array
+     * @var Event[]
      */
     protected $events;
     /**

@@ -20,6 +20,10 @@ class DecisionTaskStartedEventAttributes implements WrapperInterface
      * @var int
      */
     protected $scheduledEventId;
+    /**
+     * @var bool
+     */
+    protected $isEmpty = true;
 
     /**
      * @return int
@@ -38,15 +42,33 @@ class DecisionTaskStartedEventAttributes implements WrapperInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isIsEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * @param boolean $isEmpty
+     */
+    public function setIsEmpty($isEmpty = true)
+    {
+        $this->isEmpty = $isEmpty;
+    }
+
+    /**
      * @param array $source
      * @return mixed
      */
     public function initFromArray(array $source)
     {
-        if (array_key_exists(static::INDEX_DECISION_TASK_STARTED, $source)) {
-            $source = $source[static::INDEX_DECISION_TASK_STARTED];
+        if (!array_key_exists(static::INDEX_DECISION_TASK_STARTED, $source)) {
+            return;
         }
+        $source = $source[static::INDEX_DECISION_TASK_STARTED];
         $this->scheduledEventId = $source[static::INDEX_SCHEDULED_EVENT_ID];
+        $this->isEmpty = false;
     }
 
     /**
@@ -54,6 +76,9 @@ class DecisionTaskStartedEventAttributes implements WrapperInterface
      */
     public function convertToArray()
     {
+        if ($this->isEmpty) {
+            return array();
+        }
         return array(
             static::INDEX_DECISION_TASK_STARTED => array(
                 static::INDEX_SCHEDULED_EVENT_ID => $this->scheduledEventId,

@@ -36,6 +36,7 @@ class DecisionTaskCompletedEventAttributesTest extends AbstractTestCase
         $expectation->setScheduledEventId(2);
         $expectation->setStartedEventId(3);
         $expectation->setExecutionContext('contextValue');
+        $expectation->setIsEmpty(false);
         return array(
             array(
                 'success-full' => array(
