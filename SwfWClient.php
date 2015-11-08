@@ -10,7 +10,9 @@ namespace Vague\SwfWBundle;
 
 
 use Aws\Swf\SwfClient;
+use Vague\SwfWBundle\Activity\ActivityFailureResponse;
 use Vague\SwfWBundle\Activity\ActivityPollRequest;
+use Vague\SwfWBundle\Activity\ActivityResultResponse;
 use Vague\SwfWBundle\Activity\ActivityTask;
 use Vague\SwfWBundle\Activity\ActivityTypesListRequest;
 use Vague\SwfWBundle\Decision\Decision;
@@ -71,19 +73,17 @@ class SwfWClient
     }
 
     /**
-     * @param string $taskToken
-     * @param string $result
+     * @param ActivityResultResponse $request
      */
-    public function respondActivityTaskCompleted($taskToken, $result = null)
+    public function respondActivityTaskCompleted(ActivityResultResponse $request)
     {
+        $this->swfClient->respondActivityTaskCompleted($request->convertToArray());
     }
 
     /**
-     * @param string $taskToken
-     * @param string|null $reason
-     * @param string|null $details
+     * @param ActivityFailureResponse $request
      */
-    public function respondActivityTaskFailed($taskToken, $reason = null, $details = null)
+    public function respondActivityTaskFailed(ActivityFailureResponse $request)
     {
     }
 
