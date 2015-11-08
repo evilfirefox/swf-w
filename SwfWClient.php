@@ -18,6 +18,7 @@ use Vague\SwfWBundle\Activity\ActivityTypesListRequest;
 use Vague\SwfWBundle\Decision\Decision;
 use Vague\SwfWBundle\Decision\DecisionPollRequest;
 use Vague\SwfWBundle\Decision\DecisionTask;
+use Vague\SwfWBundle\Exception\NotYetImplementedException;
 use Vague\SwfWBundle\Workflow\ExecutionHistory;
 use Vague\SwfWBundle\Workflow\WorkflowExecutionHistoryRequest;
 
@@ -38,6 +39,7 @@ class SwfWClient
      */
     public function listActivityTypes(ActivityTypesListRequest $request)
     {
+        throw new NotYetImplementedException();
     }
 
     /**
@@ -46,6 +48,7 @@ class SwfWClient
      */
     public function getWorkflowExecutionHistory(WorkflowExecutionHistoryRequest $request)
     {
+        throw new NotYetImplementedException();
     }
 
     /**
