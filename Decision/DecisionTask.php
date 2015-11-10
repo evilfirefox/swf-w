@@ -8,13 +8,18 @@
 
 namespace Vague\SwfWBundle\Decision;
 
-
 use Vague\SwfWBundle\Common\GenericTask;
-use Vague\SwfWBundle\Interfaces\WrapperInterface;
+use Vague\SwfWBundle\Interfaces\Common\WrapperInterface;
+use Vague\SwfWBundle\Workflow\WorkflowExecution;
 use Vague\SwfWBundle\Workflow\WorkflowType;
 
 class DecisionTask extends GenericTask implements WrapperInterface
 {
+    const INDEX_EVENTS = 'events';
+    const INDEX_PREVIOUS_STARTED_EVENT = 'previousStartedEventId';
+    const INDEX_STARTED_EVENT_ID = 'startedEventId';
+    const INDEX_TASK_TOKEN = 'taskToken';
+    const INDEX_NEXT_PAGE_TOKEN = 'nextPageToken';
     /**
      * @var array
      */
@@ -105,7 +110,19 @@ class DecisionTask extends GenericTask implements WrapperInterface
      */
     public function initFromArray(array $source)
     {
-        // TODO: Implement initFromArray() method.
+        foreach ($source[static::INDEX_EVENTS] as $e) {
+            $event = new Event();
+            $event->initFromArray($e);
+            $this->events[] = $event;
+        }
+        $this->workflowExecution = new WorkflowExecution();
+        $this->workflowExecution->initFromArray($source);
+        $this->workflowType = new WorkflowType();
+        $this->workflowType->initFromArray($source);
+        $this->taskToken = $source[static::INDEX_TASK_TOKEN];
+        $this->nextPageToken = $source[static::INDEX_NEXT_PAGE_TOKEN];
+        $this->startedEventId = $source[static::INDEX_STARTED_EVENT_ID];
+        $this->previousStartedEventId = $source[static::INDEX_PREVIOUS_STARTED_EVENT];
     }
 
     /**
