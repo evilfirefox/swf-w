@@ -71,7 +71,7 @@ class SwfWClient
     {
         $result = new DecisionTask();
         $awsResult = $this->swfClient->pollForDecisionTask($request->convertToArray());
-        $result->initFromArray($awsResult->toArray());
+        $result->initFromArray($awsResult);
         return $result;
     }
 
