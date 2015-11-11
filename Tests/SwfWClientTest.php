@@ -183,9 +183,11 @@ class SwfWClientTest extends AbstractTestCase
         $workflowExecution->setIsEmpty(false);
 
         $events = array();
-        $e1 = new Event();
-        $e1->initFromArray($response);
-        $events[] = $e1;
+        foreach ($response[Event::INDEX_EVENTS] as $evt) {
+            $event = new Event();
+            $event->initFromArray($evt);
+            $events[] = $event;
+        }
 
         $expectation = new DecisionTask();
         $expectation->setTaskToken('taskTokenValue');
