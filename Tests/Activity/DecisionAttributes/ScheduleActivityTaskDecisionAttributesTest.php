@@ -29,6 +29,13 @@ class ScheduleActivityTaskDecisionAttributesTest extends AbstractTestCase
         $this->assertEquals($data[static::INDEX_EXPECTATION], $testObject);
     }
 
+    public function testInitFromArrayOnEmpty()
+    {
+        $testObject = $this->createTestObject();
+        $testObject->initFromArray(array());
+        $this->assertTrue($testObject->isIsEmpty());
+    }
+
     public function initFromArrayDataProvider()
     {
         $request = json_decode($this->loadFixture(static::FILE_FIXTURE_REQUEST), true);
@@ -71,6 +78,14 @@ class ScheduleActivityTaskDecisionAttributesTest extends AbstractTestCase
         $result = $testObject->convertToArray();
         $this->assertTrue(is_array($result));
         $this->assertEquals($data[static::INDEX_EXPECTATION], $result);
+    }
+
+    public function testConvetToArrayOnEmpty()
+    {
+        $testObject = $this->createTestObject();
+        $result = $testObject->convertToArray();
+        $this->assertTrue(is_array($result));
+        $this->assertEquals(0, count($result));
     }
 
     public function convertToArrayDataProvider()
