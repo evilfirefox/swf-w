@@ -36,6 +36,7 @@ class SwfWClient
 
     /**
      * @param ActivityTypesListRequest $request
+     * @throws NotYetImplementedException
      */
     public function listActivityTypes(ActivityTypesListRequest $request)
     {
@@ -45,6 +46,7 @@ class SwfWClient
     /**
      * @param WorkflowExecutionHistoryRequest $request
      * @return ExecutionHistory
+     * @throws NotYetImplementedException
      */
     public function getWorkflowExecutionHistory(WorkflowExecutionHistoryRequest $request)
     {
@@ -88,6 +90,7 @@ class SwfWClient
      */
     public function respondActivityTaskFailed(ActivityFailureResponse $request)
     {
+        $this->swfClient->respondActivityTaskFailed($request->convertToArray());
     }
 
     /**
@@ -95,5 +98,6 @@ class SwfWClient
      */
     public function respondDecisionTaskComplete(Decision $request)
     {
+        $this->swfClient->respondDecisionTaskCompleted($request->convertToArray());
     }
 }
