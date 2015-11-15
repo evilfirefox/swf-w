@@ -10,10 +10,15 @@ namespace Vague\SwfWBundle;
 
 
 use Aws\Swf\SwfClient;
+use Vague\SwfWBundle\Activity\ActivityFailureResponse;
 use Vague\SwfWBundle\Activity\ActivityPollRequest;
+use Vague\SwfWBundle\Activity\ActivityResultResponse;
 use Vague\SwfWBundle\Activity\ActivityTask;
+use Vague\SwfWBundle\Activity\ActivityTypesListRequest;
+use Vague\SwfWBundle\Decision\Decision;
 use Vague\SwfWBundle\Decision\DecisionPollRequest;
 use Vague\SwfWBundle\Decision\DecisionTask;
+use Vague\SwfWBundle\Exception\NotYetImplementedException;
 use Vague\SwfWBundle\Workflow\ExecutionHistory;
 use Vague\SwfWBundle\Workflow\WorkflowExecutionHistoryRequest;
 
@@ -30,11 +35,22 @@ class SwfWClient
     }
 
     /**
+     * @param ActivityTypesListRequest $request
+     * @throws NotYetImplementedException
+     */
+    public function listActivityTypes(ActivityTypesListRequest $request)
+    {
+        throw new NotYetImplementedException();
+    }
+
+    /**
      * @param WorkflowExecutionHistoryRequest $request
      * @return ExecutionHistory
+     * @throws NotYetImplementedException
      */
     public function getWorkflowExecutionHistory(WorkflowExecutionHistoryRequest $request)
     {
+        throw new NotYetImplementedException();
     }
 
     /**
@@ -57,7 +73,31 @@ class SwfWClient
     {
         $result = new DecisionTask();
         $awsResult = $this->swfClient->pollForDecisionTask($request->convertToArray());
-        $result->initFromArray($awsResult->toArray());
+        $result->initFromArray($awsResult);
         return $result;
+    }
+
+    /**
+     * @param ActivityResultResponse $request
+     */
+    public function respondActivityTaskCompleted(ActivityResultResponse $request)
+    {
+        $this->swfClient->respondActivityTaskCompleted($request->convertToArray());
+    }
+
+    /**
+     * @param ActivityFailureResponse $request
+     */
+    public function respondActivityTaskFailed(ActivityFailureResponse $request)
+    {
+        $this->swfClient->respondActivityTaskFailed($request->convertToArray());
+    }
+
+    /**
+     * @param Decision $request
+     */
+    public function respondDecisionTaskComplete(Decision $request)
+    {
+        $this->swfClient->respondDecisionTaskCompleted($request->convertToArray());
     }
 }
