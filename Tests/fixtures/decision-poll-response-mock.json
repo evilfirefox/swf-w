@@ -1,0 +1,61 @@
+{
+  "previousStartedEventId": 0,
+  "workflowExecution": {
+    "workflowId": "20110927-T-1",
+    "runId": "06b8f87a-24b3-40b6-9ceb-9676f28e9493"
+  },
+  "startedEventId": 3,
+  "workflowType": {
+    "version": "1.0",
+    "name": "customerOrderWorkflow"
+  },
+  "events": [
+    {
+      "eventId": 3,
+      "decisionTaskStartedEventAttributes": {
+        "scheduledEventId": 2,
+        "identity": "Decider01"
+      },
+      "eventTimestamp": 1326593394.566,
+      "eventType": "DecisionTaskStarted"
+    },
+    {
+      "eventId": 2,
+      "eventType": "DecisionTaskScheduled",
+      "decisionTaskScheduledEventAttributes": {
+        "startToCloseTimeout": "600",
+        "taskList": {
+          "name": "specialTaskList"
+        },
+        "taskPriority": "100"
+      },
+      "eventTimestamp": 1326592619.474
+    },
+    {
+      "eventId": 1,
+      "eventType": "WorkflowExecutionStarted",
+      "workflowExecutionStartedEventAttributes": {
+        "taskList": {
+          "name": "specialTaskList"
+        },
+        "parentInitiatedEventId": 0,
+        "taskStartToCloseTimeout": "600",
+        "childPolicy": "TERMINATE",
+        "executionStartToCloseTimeout": "3600",
+        "input": "arbitrary-string-that-is-meaningful-to-the-workflow",
+        "workflowType": {
+          "version": "1.0",
+          "name": "customerOrderWorkflow"
+        },
+        "tagList": [
+          "music purchase",
+          "digital",
+          "ricoh-the-dog"
+        ]
+      },
+      "eventTimestamp": 1326592619.474
+    }
+  ],
+  "taskToken": "taskTokenValue",
+  "nextPageToken": "nextPageTokenValue"
+}

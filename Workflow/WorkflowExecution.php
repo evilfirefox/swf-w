@@ -32,6 +32,10 @@ class WorkflowExecution implements WrapperInterface
      * @var string
      */
     protected $workflowId;
+    /**
+     * @var bool
+     */
+    protected $isEmpty = true;
 
     /**
      * @return string
@@ -66,12 +70,34 @@ class WorkflowExecution implements WrapperInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isIsEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * @param boolean $isEmpty
+     */
+    public function setIsEmpty($isEmpty = true)
+    {
+        $this->isEmpty = $isEmpty;
+    }
+
+    /**
      * @param array $source
      * @return mixed
      */
     public function initFromArray(array $source)
     {
-
+        if (!array_key_exists(static::INDEX_WORKFLOW_EXECUTION, $source)) {
+            return;
+        }
+        $source = $source[static::INDEX_WORKFLOW_EXECUTION];
+        $this->runId = $source[static::INDEX_RUN_ID];
+        $this->workflowId = $source[static::INDEX_WORKFLOW_ID];
+        $this->isEmpty = false;
     }
 
     /**
@@ -79,6 +105,9 @@ class WorkflowExecution implements WrapperInterface
      */
     public function convertToArray()
     {
+        if ($this->isEmpty) {
+            return array();
+        }
         return array(
             static::INDEX_WORKFLOW_EXECUTION => array(
                 static::INDEX_RUN_ID => $this->runId,
