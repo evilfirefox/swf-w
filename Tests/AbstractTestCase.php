@@ -9,7 +9,7 @@
 namespace Vague\SwfWBundle\Tests;
 
 
-abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase implements WrapperInterfaceTest
 {
     const MASK_PATH = '%s/%s/%s';
     const PATH_FIXTURES = 'fixtures';
