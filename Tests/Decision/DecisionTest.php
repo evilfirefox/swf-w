@@ -58,7 +58,11 @@ class DecisionTest extends AbstractWrapperTestCase
      */
     public function testConvertToArray(array $data)
     {
-        $this->assertTrue(true);
+        $testObject = $this->createTestObject();
+        $testObject->initFromArray($data[static::INDEX_INPUT]);
+        $result = $testObject->convertToArray();
+        $this->assertTrue(is_array($result));
+        $this->assertEquals($data[static::INDEX_EXPECTATION], $result);
     }
 
     /**
@@ -66,9 +70,13 @@ class DecisionTest extends AbstractWrapperTestCase
      */
     public function convertToArrayDataProvider()
     {
+        $fixture = json_decode($this->loadFixture(static::FILE_FIXTURE), true);
         return array(
             array(
-                'success' => array(),
+                'success' => array(
+                    static::INDEX_INPUT => $fixture,
+                    static::INDEX_EXPECTATION => $fixture,
+                ),
             ),
         );
     }
