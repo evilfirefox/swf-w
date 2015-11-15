@@ -1,0 +1,20 @@
+{
+  "scheduleActivityTaskDecisionAttributes": {
+    "control": "digital music",
+    "taskList": {
+      "name": "specialTaskList"
+    },
+    "scheduleToCloseTimeout": "900",
+    "activityType": {
+      "version": "1.0",
+      "name": "activityVerify"
+    },
+    "heartbeatTimeout": "120",
+    "activityId": "verification-27",
+    "scheduleToStartTimeout": "300",
+    "startToCloseTimeout": "600",
+    "taskPriority": "100",
+    "input": "5634-0056-4367-0923,12/12,437"
+  },
+  "decisionType": "ScheduleActivityTask"
+}
