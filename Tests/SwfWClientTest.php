@@ -16,6 +16,7 @@ use Vague\SwfWBundle\Activity\ActivityResultResponse;
 use Vague\SwfWBundle\Activity\ActivityTask;
 use Vague\SwfWBundle\Activity\ActivityTypesListRequest;
 use Vague\SwfWBundle\Decision\DecisionPollRequest;
+use Vague\SwfWBundle\Decision\DecisionResult;
 use Vague\SwfWBundle\Decision\DecisionTask;
 use Vague\SwfWBundle\Decision\Event;
 use Vague\SwfWBundle\SwfWClient;
@@ -32,6 +33,7 @@ class SwfWClientTest extends AbstractTestCase
     const FIXTURE_DECISION_POLL_RESPONSE = 'decision-poll-response-mock.json';
     const FIXTURE_ACTIVITY_TASK_FAILED_REQUEST = 'activity-task-failed-mock.json';
     const FIXTURE_RESPOND_ACTIVITY_TASK_COMPLETE = 'respond-activity-task-complete-mock.json';
+    const FIXTURE_DECISION_TASK_COMPLETED = 'decision-task-completed-mock.json';
     const EXCEPTION_NOT_IMPLEMENTED = '\Vague\SwfWBundle\Exception\NotYetImplementedException';
     const MESSAGE_EXCEPTION_EXPECTED = 'Exception was expected';
 
@@ -49,7 +51,8 @@ class SwfWClientTest extends AbstractTestCase
                     'pollForActivityTask',
                     'respondActivityTaskCompleted',
                     'pollForDecisionTask',
-                    'RespondActivityTaskFailed',
+                    'respondActivityTaskFailed',
+                    'respondDecisionTaskCompleted',
                 )
             )
             ->getMock();
@@ -153,8 +156,36 @@ class SwfWClientTest extends AbstractTestCase
             ->method('respondActivityTaskCompleted')
             ->with($testData[static::INDEX_EXPECTATION]);
 
-        $testObject = $this->createTestObject();
-        $testObject->respondActivityTaskCompleted($testData[static::INDEX_INPUT]);
+        $this->createTestObject()->respondActivityTaskCompleted($testData[static::INDEX_INPUT]);
+    }
+
+    /**
+     * @param array $testData
+     * @dataProvider respondDecisionTaskCompleteDataProvider
+     */
+    public function testRespondDecisionTaskComplete(array $testData)
+    {
+        $this->swfClientMock->expects($this->once())
+            ->method('respondDecisionTaskCompleted')
+            ->with($testData[static::INDEX_SWF_CLIENT_REQUEST_MOCK]);
+
+        $this->createTestObject()->respondDecisionTaskComplete($testData[static::INDEX_INPUT]);
+    }
+
+    public function respondDecisionTaskCompleteDataProvider()
+    {
+        $fixture = json_decode($this->loadFixture(static::FIXTURE_DECISION_TASK_COMPLETED), true);
+        $request = new DecisionResult();
+        $request->initFromArray($fixture);
+
+        return array(
+            array(
+                'success' => array(
+                    static::INDEX_INPUT => $request,
+                    static::INDEX_SWF_CLIENT_REQUEST_MOCK => $fixture,
+                ),
+            ),
+        );
     }
 
     public function pollForActivityTaskDataProvider()

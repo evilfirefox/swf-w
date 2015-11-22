@@ -17,6 +17,7 @@ use Vague\SwfWBundle\Activity\ActivityTask;
 use Vague\SwfWBundle\Activity\ActivityTypesListRequest;
 use Vague\SwfWBundle\Decision\Decision;
 use Vague\SwfWBundle\Decision\DecisionPollRequest;
+use Vague\SwfWBundle\Decision\DecisionResult;
 use Vague\SwfWBundle\Decision\DecisionTask;
 use Vague\SwfWBundle\Exception\NotYetImplementedException;
 use Vague\SwfWBundle\Workflow\ExecutionHistory;
@@ -94,9 +95,9 @@ class SwfWClient
     }
 
     /**
-     * @param Decision $request
+     * @param DecisionResult $request
      */
-    public function respondDecisionTaskComplete(Decision $request)
+    public function respondDecisionTaskComplete(DecisionResult $request)
     {
         $this->swfClient->respondDecisionTaskCompleted($request->convertToArray());
     }
