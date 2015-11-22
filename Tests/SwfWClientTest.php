@@ -10,6 +10,7 @@ namespace Vague\SwfWBundle\Tests;
 
 
 use Aws\Swf\SwfClient;
+use Vague\SwfWBundle\Activity\ActivityFailureResponse;
 use Vague\SwfWBundle\Activity\ActivityPollRequest;
 use Vague\SwfWBundle\Activity\ActivityResultResponse;
 use Vague\SwfWBundle\Activity\ActivityTask;
@@ -29,6 +30,7 @@ class SwfWClientTest extends AbstractTestCase
     const FIXTURE_ACTIVITY_POLL_RESPONSE = 'activity-poll-response-mock.json';
     const FIXTURE_DECISION_POLL_REQUEST = 'decision-poll-request-mock.json';
     const FIXTURE_DECISION_POLL_RESPONSE = 'decision-poll-response-mock.json';
+    const FIXTURE_ACTIVITY_TASK_FAILED_REQUEST = 'activity-task-failed-mock.json';
     const FIXTURE_RESPOND_ACTIVITY_TASK_COMPLETE = 'respond-activity-task-complete-mock.json';
     const EXCEPTION_NOT_IMPLEMENTED = '\Vague\SwfWBundle\Exception\NotYetImplementedException';
     const MESSAGE_EXCEPTION_EXPECTED = 'Exception was expected';
@@ -42,7 +44,14 @@ class SwfWClientTest extends AbstractTestCase
     {
         $this->swfClientMock = $this->getMockBuilder('Aws\Swf\SwfClient')
             ->disableOriginalConstructor()
-            ->setMethods(array('pollForActivityTask', 'respondActivityTaskCompleted', 'pollForDecisionTask',))
+            ->setMethods(
+                array(
+                    'pollForActivityTask',
+                    'respondActivityTaskCompleted',
+                    'pollForDecisionTask',
+                    'RespondActivityTaskFailed',
+                )
+            )
             ->getMock();
     }
 
@@ -101,6 +110,37 @@ class SwfWClientTest extends AbstractTestCase
         } catch (\Exception $e) {
             $this->assertInstanceOf(static::EXCEPTION_NOT_IMPLEMENTED, $e);
         }
+    }
+
+    /**
+     * @param array $testData
+     * @dataProvider respondActivityTaskFailedDataProvider
+     */
+    public function testRespondActivityTaskFailed(array $testData)
+    {
+        $this->swfClientMock->expects($this->once())
+            ->method('respondActivityTaskFailed')
+            ->with($testData[static::INDEX_SWF_CLIENT_REQUEST_MOCK]);
+        $this->createTestObject()->respondActivityTaskFailed($testData[static::INDEX_INPUT]);
+    }
+
+    public function respondActivityTaskFailedDataProvider()
+    {
+        $fixture = json_decode($this->loadFixture(static::FIXTURE_ACTIVITY_TASK_FAILED_REQUEST), true);
+
+        $request = new ActivityFailureResponse();
+        $request->setTaskToken('AAAAKgAAAAEAAAAAAAAAAdG7j7YFEl9pfKdXRL3Cy3Q3c');
+        $request->setReason('could not verify customer credit card');
+        $request->setDetails('card number invalid');
+
+        return array(
+            array(
+                'success' => array(
+                    static::INDEX_INPUT => $request,
+                    static::INDEX_SWF_CLIENT_REQUEST_MOCK => $fixture,
+                ),
+            ),
+        );
     }
 
     /**
